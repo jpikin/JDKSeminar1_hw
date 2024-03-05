@@ -11,6 +11,7 @@ public class Server extends JFrame {
     JButton start = new JButton("Start session");
     JButton stop = new JButton("Close connection");
     JPanel buttons = new JPanel();
+    JPanel netProtocol = new JPanel(new GridLayout(2,2));
 
     Server(){
         setTitle("Server");
@@ -20,6 +21,15 @@ public class Server extends JFrame {
         buttons.add(start);
         buttons.add(stop);
         add(buttons, BorderLayout.SOUTH);
+
+
+        netProtocol.add(new JTextField("server"));
+        netProtocol.add(new JTextField("ip"));
+        netProtocol.add(new JTextField("user"));
+        netProtocol.add(new JTextField("password"));
+        add(netProtocol, BorderLayout.NORTH);
+
+        add(new JTextArea());
 
         setVisible(true);
     }
