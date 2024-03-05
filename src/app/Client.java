@@ -38,7 +38,6 @@ public class Client extends JFrame {
             public void keyTyped(KeyEvent e) {
                 if (e.getKeyChar() == '\n') {
                     String txt = getUserName() +": " + inputField.getText();
-                    Logs.saveToLogsFile(txt);
                     Server.setCurrentMessage(txt);
                     inputField.setText("");
                 }

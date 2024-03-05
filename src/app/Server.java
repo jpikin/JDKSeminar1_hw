@@ -12,23 +12,22 @@ import static java.awt.event.KeyEvent.VK_ENTER;
 public class Server extends JFrame {
     private static final int HEIGHT = 300;
     private static final int WIDTH = 400;
-    private static final int  POS_X = 600;
+    private static final int POS_X = 600;
     private static final int POS_Y = 600;
     public static boolean isStart = false;
     public static String currentMessage = "";
     JButton btnStart = new JButton("Start server");
     JButton btnStop = new JButton("Close server");
-    JPanel bottomGroup = new JPanel(new GridLayout(2,1));
-    JPanel netProtocol = new JPanel(new GridLayout(2,2));
+    JPanel bottomGroup = new JPanel(new GridLayout(2, 1));
+    JPanel netProtocol = new JPanel(new GridLayout(2, 2));
     JPanel buttonsGroup = new JPanel();
     static JTextArea chat = new JTextArea();
 
 
-
-    Server(){
+    Server() {
         setTitle("Server");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBounds(POS_X, POS_Y,  WIDTH, HEIGHT);
+        setBounds(POS_X, POS_Y, WIDTH, HEIGHT);
 
         btnStart.addActionListener(new ActionListener() {
             @Override
@@ -51,7 +50,6 @@ public class Server extends JFrame {
         add(buttonsGroup, BorderLayout.SOUTH);
 
 
-
         netProtocol.add(new JTextField("server"));
         netProtocol.add(new JTextField("ip"));
         netProtocol.add(new JTextField("user"));
@@ -63,9 +61,10 @@ public class Server extends JFrame {
 
         setVisible(true);
     }
-    public static void setCurrentMessage(String txt){
-        currentMessage = txt;
-        chat.setText(txt + '\n');
 
+    public static void setCurrentMessage(String txt) {
+        currentMessage = txt + '\n';
+        chat.setText(txt);
+        Logs.saveToLogsFile(txt);
     }
 }
