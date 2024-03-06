@@ -65,13 +65,14 @@ public class Client extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 isOnline = true;
-                chat.setText(Server.chat.getText());
+                chat.setText("Connected to server\n" + Server.chat.getText());
             }
         });
         btnStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 isOnline = false;
+                chat.setText("Disconnected from server");
             }
         });
 
