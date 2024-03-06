@@ -2,33 +2,39 @@ package app;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import static java.awt.event.KeyEvent.VK_ENTER;
 
 public class Client extends JFrame {
+    private boolean isOnline = false;
+    private String clientName;
     private String userName;
     private String password;
     private static int clientID = 0;
     private static final int HEIGHT = 300;
     private static final int WIDTH = 400;
-    private static final int  POS_X = 300;
+    private static final int POS_X = 300;
     private static final int POS_Y = 300;
-    private boolean isConnect = false;
     JButton btnStart = new JButton("Connect");
     JButton btnStop = new JButton("Disconnect");
     JPanel buttons = new JPanel();
-    JPanel netProtocol = new JPanel(new GridLayout(2,2));
-    JPanel bottomGroup = new JPanel(new GridLayout(2,1));
+    JPanel netProtocol = new JPanel(new GridLayout(2, 2));
+    JPanel bottomGroup = new JPanel(new GridLayout(2, 1));
     JPanel buttonsGroup = new JPanel();
     JTextField inputField = new JTextField();
     JTextField userNameField = new JTextField("user");
-    Client(){
+    JTextArea chat = new JTextArea();
+
+    Client() {
         userName = userNameField.getText();
         clientID++;
+        clientName = getClientID();
         setTitle(getClientID());
-        setBounds(POS_X, POS_Y,  WIDTH, HEIGHT);
+        setBounds(POS_X, POS_Y, WIDTH, HEIGHT);
 
         buttons.add(btnStart);
         buttons.add(btnStop);
@@ -36,9 +42,15 @@ public class Client extends JFrame {
         inputField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar() == '\n') {
-                    String txt = getUserName() +": " + inputField.getText();
-                    Server.setCurrentMessage(txt);
+                if (isOnline) {
+                    if (e.getKeyChar() == '\n') {
+                        String txt = getUserName() + ": " + inputField.getText();
+                        Server.setCurrentMessage(txt);
+                        inputField.setText("");
+                    }
+                }
+                else {
+                    chat.setText("Not connected to server");
                     inputField.setText("");
                 }
             }
@@ -47,6 +59,19 @@ public class Client extends JFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 userName = userNameField.getText();
+            }
+        });
+        btnStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isOnline = true;
+                chat.setText(Server.chat.getText());
+            }
+        });
+        btnStop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isOnline = false;
             }
         });
 
@@ -63,25 +88,26 @@ public class Client extends JFrame {
         netProtocol.add(new JTextField("password"));
         add(netProtocol, BorderLayout.NORTH);
 
-        add(new JTextArea());
+        add(chat);
 
         setVisible(true);
     }
 
-    private String getClientID(){
+    private String getClientID() {
         return "Client " + clientID;
     }
-    private String getUserName(){
+
+    private String getUserName() {
         return this.userName;
     }
-    private void setUserName(String userName){
-        this.userName = userName;
+
+    @Override
+    public String toString() {
+        return getClientID();
     }
-    private void setConnection(){
-        if (Server.isStart) isConnect = true;
-        else serverIsNotAvalible();
+
+    public boolean getIsOnline() {
+        return isOnline;
     }
-    private String serverIsNotAvalible(){
-        return "Server is not avalible";
-    }
+
 }

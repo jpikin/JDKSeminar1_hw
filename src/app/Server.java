@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import static java.awt.event.KeyEvent.VK_ENTER;
 
@@ -16,6 +17,7 @@ public class Server extends JFrame {
     private static final int POS_Y = 600;
     public static boolean isStart = false;
     public static String currentMessage = "";
+    static ArrayList<Client> clientList = new ArrayList<>();
     JButton btnStart = new JButton("Start server");
     JButton btnStop = new JButton("Close server");
     JPanel bottomGroup = new JPanel(new GridLayout(2, 1));
@@ -63,8 +65,16 @@ public class Server extends JFrame {
     }
 
     public static void setCurrentMessage(String txt) {
-        currentMessage = txt + '\n';
-        chat.setText(txt);
-        Logs.saveToLogsFile(txt);
+        currentMessage = txt;
+        chat.setText(chat.getText()  + txt + '\n');
+        sendChat();
+        Logs.saveToLogsFile(txt + '\n');
     }
+    private static void sendChat(){
+        for (Client c : clientList) {
+            if (c.getIsOnline())
+                c.chat.setText(chat.getText());
+        }
+    }
+
 }
