@@ -36,7 +36,9 @@ public class Server extends JFrame {
         btnStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 isStarted = false;
+                Client.disconnect();
             }
         });
 

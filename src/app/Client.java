@@ -48,8 +48,7 @@ public class Client extends JFrame {
                         Server.setCurrentMessage(txt);
                         inputField.setText("");
                     }
-                }
-                else {
+                } else {
                     chat.setText("Not connected to server");
                     inputField.setText("");
                 }
@@ -64,15 +63,21 @@ public class Client extends JFrame {
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                isOnline = true;
-                chat.setText("Connected to server\n" + Server.chat.getText());
+                if (Server.isStarted) {
+                    isOnline = true;
+                    chat.setText("Connected to server\n" + Server.chat.getText());
+                } else {
+                    chat.setText("Server is not available");
+                }
             }
         });
         btnStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                isOnline = false;
-                chat.setText("Disconnected from server");
+                if (isOnline) {
+                    isOnline = false;
+                    chat.setText("Disconnected from server");
+                }
             }
         });
 
@@ -111,4 +116,12 @@ public class Client extends JFrame {
         return isOnline;
     }
 
+    public static void disconnect() {
+        for (Client c : Server.clientList){
+            if (c.isOnline) {
+                c.isOnline = false;
+                c.chat.setText("The server was shutdown");
+            }
+        }
+    }
 }
