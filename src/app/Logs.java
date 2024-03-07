@@ -3,11 +3,11 @@ package app;
 import java.io.File;
 
 public class Logs {
-    File file = new File("./src/logs/logs.txt");
+    private File file = new File("./src/logs/logs.txt");
     public static void readLogs(){
 
     }
-    public static void saveToLogsFile(String txt){
+    public static void saveLogs(String txt){
         String toLogfile = txt;
         System.out.println(txt);
     }

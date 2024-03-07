@@ -36,7 +36,6 @@ public class Server extends JFrame {
         btnStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 isStarted = false;
                 Client.disconnect();
             }
@@ -65,7 +64,7 @@ public class Server extends JFrame {
         currentMessage = txt;
         chat.setText(chat.getText()  + txt + '\n');
         sendChat();
-        Logs.saveToLogsFile(txt + '\n');
+        Logs.saveLogs(txt + '\n');
     }
     private static void sendChat(){
         for (Client c : clientList) {

@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import static java.awt.event.KeyEvent.VK_ENTER;
-
 public class Client extends JFrame {
     private boolean isOnline = false;
     private String clientName;
@@ -120,7 +118,7 @@ public class Client extends JFrame {
         for (Client c : Server.clientList){
             if (c.isOnline) {
                 c.isOnline = false;
-                c.chat.setText("The server was shutdown");
+                c.chat.setText("Server was shutdown");
             }
         }
     }
