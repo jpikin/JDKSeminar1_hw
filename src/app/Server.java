@@ -30,7 +30,7 @@ public class Server extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 isStarted = true;
-                String readLogs = Logs.readLogs();
+                chat.setText(Logs.readLogs());
             }
         });
         btnStop.addActionListener(new ActionListener() {
