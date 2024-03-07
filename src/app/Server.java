@@ -60,12 +60,20 @@ public class Server extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Метод формирует текущее сообщение, вызывает метод логирования и метод отправки текущего сообщения всем клиентам.
+     * @param txt Текущее сообщение.
+     */
     public static void setCurrentMessage(String txt) {
         currentMessage = txt;
         chat.setText(chat.getText()  + txt + '\n');
         sendChat();
         Logs.saveLogs(txt + '\n');
     }
+
+    /**
+     * Метод отправляет текущее сообщение всем клиентам ОНЛАЙН.
+     */
     private static void sendChat(){
         for (Client c : clientList) {
             if (c.getIsOnline())

@@ -37,6 +37,10 @@ public class Client extends JFrame {
         buttons.add(btnStart);
         buttons.add(btnStop);
         add(buttons, BorderLayout.SOUTH);
+
+        /**
+         * Программирование поля ввода сообщений.
+         */
         inputField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -52,12 +56,19 @@ public class Client extends JFrame {
                 }
             }
         });
+
+        /**
+         * Программирование поля ввода имени.
+         */
         userNameField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 userName = userNameField.getText();
             }
         });
+        /**
+         * Программирование кнопки СТАРТ.
+         */
         btnStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,6 +80,9 @@ public class Client extends JFrame {
                 }
             }
         });
+        /**
+         * Программирование кнопки СТОП.
+         */
         btnStop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,10 +111,16 @@ public class Client extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Метод возвращает имя клиента+ID.
+     */
     private String getClientID() {
         return "Client " + clientID;
     }
 
+    /**
+     * Метод возвращает имя пользователя
+     */
     private String getUserName() {
         return this.userName;
     }
@@ -110,10 +130,16 @@ public class Client extends JFrame {
         return getClientID();
     }
 
+    /**
+     * Метод проверки подключен ли клиент к серверу.
+     */
     public boolean getIsOnline() {
         return isOnline;
     }
 
+    /**
+     * Метод закрывает соединение клиентов с сервером.
+     */
     public static void disconnect() {
         for (Client c : Server.clientList){
             if (c.isOnline) {
